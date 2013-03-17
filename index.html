@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>Historical Helsinki</title>
+    
+    <script src="lib/openlayers/OpenLayers.js" type="text/javascript"></script>
+    
+    <script src="historical-helsinki.js" type="text/javascript"></script>
+    
+    <script type="text/javascript" src="lib/slider/utilities.js"></script>
+    <script type="text/javascript" src="lib/slider/slider-min.js"></script>
+
+    <link rel="stylesheet" href="style/main.css" />
+</head>
+<body>
+
+    <h1>Historical Helsinki</h1>
+    
+    <p>
+        Historical layers:
+        <a href="#" onclick="return map.showHistoricalLayer('Helsinki 1897');">1897</a>
+        <a href="#" onclick="return map.showHistoricalLayer('Helsinki 1837');">1837</a>
+    <p>
+        Background:
+        <a href="#" onclick="return map.showBaseLayer('Present Day (VEarth road)');">road</a>
+        or <a href="#" onclick="return map.showBaseLayer('Present Day (VEarth aerial)');">aerial</a> (Microsoft Virtual Earth)
+    </p>
+   
+   <div id="slider">
+        <div class="sliderlabel">
+        Transparency:
+        </div>
+        <div id="sliderbg">
+            <div id="sliderthumb"></div>
+        </div>
+        <div class="sliderclearer"></div>
+    </div>
+    
+    <div id="map"></div>
+    
+    <h3><a name="sources"></a>Sources</h3>
+    
+    <ul>
+        <li><b>1897</b>: Suomen Matkailija-Yhdistys: Suomi kartasto, <a href="http://www.histdoc.net/pic/helsinki1897.jpg">Map of Helsinki</a>. Copyright for digital version Pauli Kruhse / <a href="http://www.histdoc.net/">Histdoc.net</a>.
+        <li><b>Map template</b>: This page is based on the <a href="http://www.teczno.com/old-oakland/">Old Oakland</a> page by Michal Migurski and uses <a href="HelsinkiLayers.js">javascript code</a> originating from the page. For more information on how to make maps like this, see the blog post <a href="http://mike.teczno.com/notes/flea-market-mapping.html">Flea market mapping</a> by Michal Migurski and have a look at <a href="http://www.youtube.com/watch?v=AIofnbSnd9E">this video</a> on the project. The transparency slider was inspired by <a href="http://sautter.com/map/">Sautter.com/map</a>.
+    </ul>
+
+    <script type="text/javascript">
+        var map = new HelsinkiMap('map');
+        init_slider();
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,39 @@
+Licenses and copyrights
+
+* historical helsinki
+  - dual license under MIT and GPL v2
+
+* map helsinki1897
+  - Suomen Matkailija-Yhdistys: Suomi kartasto, Map of Helsinki
+  - Copyright for digital version Pauli Kruhse / Histdoc.net.
+  - usage of the map ok on Historical Helsinki web site, as long as there
+    is a link to histdoc.net or otherwise Pauli Kruhse mentioned on the site.
+    (ensure usage and license on other sites from Pauli Kruhse)
+ 
+* map helsinki1837
+  - from JYX
+  - free to use, as long as there is a link to the original source with the correct urn
+    of the format http://urn.fi/URN:NBN:fi: ...
+    
+* open layers dark theme
+  - license: https://github.com/developmentseed/openlayers_themes/
+  - would seem to have both GPL v2 and BSD license
+  
+* decompose.py
+  - original source: http://mike.teczno.com/img/flea-market-map-decompose.py.txt
+  - copyright michail migurski
+  - no licence info
+  
+* yahoo slider widget
+  - licensed under the BSD license
+  
+* open layers
+  - published under the 2-clause BSD license
+  
+* code from old oakland, use approved by michail migurski
+  "I think it's great that you're using the code in this way!
+   The map looks fantastic and the addition of the transparency slider 
+   is a really nice touch."
+   
+* Modest Maps, wscompose
+  - BSD-license

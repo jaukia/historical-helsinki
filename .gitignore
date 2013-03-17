@@ -1,0 +1,7 @@
+*.DS_Store
+misc
+tiles/*
+tools/tmp
+tools/out
+tools/todo.txt
+
