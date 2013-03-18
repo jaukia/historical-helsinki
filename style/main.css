@@ -24,7 +24,7 @@
     width: 209px;
     background: #fff url("../lib/slider/bg-h.gif") repeat-x 0 0;
     float:left;
-    margin-left:1em;
+    margin-left:7px;
 }
 
 #sliderthumb {
@@ -63,6 +63,16 @@ h1, h3 {
 
 ul li {
     font-size: 80%;
+}
+
+.footerLink {
+    margin-top:15px;
+    font-size: 80%;
+}
+
+.topLabel {
+    display:inline-block;
+    min-width: 135px;
 }
 
 #map {
