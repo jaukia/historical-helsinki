@@ -36,7 +36,6 @@ rm -r out
 mkdir out
 
 # generates ~ 10k images, takes ~ 20min
-# 23:00-
 python decompose/decompose.py tmp/helsinki1837-convcoords.tif
 
 rm -r ../tiles/helsinki1837
@@ -62,7 +61,6 @@ rm -r out
 mkdir out
 
 # generates ~ 10k images, takes ~ 20min
-# 23:00-
 python decompose/decompose.py tmp/helsinki1897-convcoords.tif
 
 rm -r ../tiles/helsinki1897
