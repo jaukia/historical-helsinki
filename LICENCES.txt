@@ -3,14 +3,19 @@ Licenses and copyrights
 * historical helsinki
   - dual license under MIT and GPL v2
 
-* map helsinki1897
+* aerial photos helsinki 1943
+  - Original source: http://www.hri.fi/fi/data/helsingin-ortokuva-1943/
+  - Licence "HRI – tietoaineistojen lisenssi – nimeä"
+    http://www.hri.fi/lisenssit/hri-nimea/
+
+* map of helsinki from 1897
   - Suomen Matkailija-Yhdistys: Suomi kartasto, Map of Helsinki
   - Copyright for digital version Pauli Kruhse / Histdoc.net.
   - usage of the map ok on Historical Helsinki web site, as long as there
     is a link to histdoc.net or otherwise Pauli Kruhse mentioned on the site.
     (ensure usage and license on other sites from Pauli Kruhse)
  
-* map helsinki1837
+* map of helsinki from 1837
   - from JYX
   - free to use, as long as there is a link to the original source with the correct urn
     of the format http://urn.fi/URN:NBN:fi:jyu-200908243765

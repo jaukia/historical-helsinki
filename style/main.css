@@ -38,6 +38,10 @@
 
 /* Page styling */
 
+.mapLink {
+    margin:5px;
+}
+
 body {
     margin: 2.5em;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
