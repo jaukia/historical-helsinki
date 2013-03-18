@@ -11,6 +11,7 @@ function init_slider() {
     slider.subscribe("change", function(offsetFromStart) {
       map.layers['Helsinki 1897'].setOpacity(slider.getRealValue());
       map.layers['Helsinki 1837'].setOpacity(slider.getRealValue());
+      map.layers['Helsinki 1943'].setOpacity(slider.getRealValue());
     });
 }
 
@@ -133,11 +134,19 @@ function HelsinkiMap(div) {
         visibility: false
     };
     
+    var layer1943Args = {
+        buffer: 0,
+        getURL: getGetURLMethod('tiles/helsinki1943', 'png'),
+        isBaseLayer: false,
+        visibility: false
+    };
+    
     this.map = new OpenLayers.Map(div, mapArgs);
     
     this.layers = {};
     this.addHistoricalLayer('Helsinki 1897', layer1897Args);
     this.addHistoricalLayer('Helsinki 1837', layer1837Args);
+    this.addHistoricalLayer('Helsinki 1943', layer1943Args);
     this.addHistoricalLayer('Present Day (VEarth road)', layerVEarthArgs);
     this.addHistoricalLayer('Present Day (VEarth aerial)', layerAerialArgs);
 

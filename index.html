@@ -21,6 +21,7 @@
         Historical layers:
         <a href="#" onclick="return map.showHistoricalLayer('Helsinki 1897');">1897</a>
         <a href="#" onclick="return map.showHistoricalLayer('Helsinki 1837');">1837</a>
+        <a href="#" onclick="return map.showHistoricalLayer('Helsinki 1943');">1943</a>
     <p>
         Background:
         <a href="#" onclick="return map.showBaseLayer('Present Day (VEarth road)');">road</a>
@@ -43,8 +44,22 @@
     
     <ul>
         <li><b>1897</b>: Suomen Matkailija-Yhdistys: Suomi kartasto, <a href="http://www.histdoc.net/pic/helsinki1897.jpg">Map of Helsinki</a>. Copyright for digital version Pauli Kruhse / <a href="http://www.histdoc.net/">Histdoc.net</a>.
+        <li><b>1837</b>: Gyldén, C.W. <a href="http://urn.fi/URN:NBN:fi:jyu-200908243765">Map of Helsinki</a>. Copyright for digital version University of Jyväskylä.
         <li><b>Map template</b>: This page is based on the <a href="http://www.teczno.com/old-oakland/">Old Oakland</a> page by Michal Migurski and uses <a href="HelsinkiLayers.js">javascript code</a> originating from the page. For more information on how to make maps like this, see the blog post <a href="http://mike.teczno.com/notes/flea-market-mapping.html">Flea market mapping</a> by Michal Migurski and have a look at <a href="http://www.youtube.com/watch?v=AIofnbSnd9E">this video</a> on the project. The transparency slider was inspired by <a href="http://sautter.com/map/">Sautter.com/map</a>.
     </ul>
+    
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-39371546-1']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
 
     <script type="text/javascript">
         var map = new HelsinkiMap('map');

@@ -1,4 +1,24 @@
 #########################
+# PROCESS HELSINKI1943
+#########################
+
+rm -r tmp
+mkdir tmp
+
+gdalwarp -t_srs "+proj=latlong +ellps=WGS84 +datum=WGS84 +no_defs" -r cubic -dstalpha -ts 40000 0 -srcnodata 0 source-maps/helsinki1943.tif tmp/helsinki1943-warped.tif
+
+gdal_translate tmp/helsinki1943-warped.tif tmp/helsinki1943-warped-color.tif -b 1 -b 1 -b 1 -b mask
+
+rm -r out
+mkdir out
+
+# generates ~ 31k images, takes ~ 12 hours
+python decompose/decompose.py tmp/helsinki1943-warped-color.tif
+
+rm -r ../tiles/helsinki1943
+mv out ../tiles/helsinki1943
+
+#########################
 # PROCESS HELSINKI1837
 #########################
 

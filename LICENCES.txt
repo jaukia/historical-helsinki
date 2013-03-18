@@ -13,7 +13,7 @@ Licenses and copyrights
 * map helsinki1837
   - from JYX
   - free to use, as long as there is a link to the original source with the correct urn
-    of the format http://urn.fi/URN:NBN:fi: ...
+    of the format http://urn.fi/URN:NBN:fi:jyu-200908243765
     
 * open layers dark theme
   - license: https://github.com/developmentseed/openlayers_themes/
