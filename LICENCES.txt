@@ -20,6 +20,11 @@ Licenses and copyrights
   - free to use, as long as there is a link to the original source with the correct urn
     of the format http://urn.fi/URN:NBN:fi:jyu-200908243765
     
+* Smith-Polvinen-II_M1-Ruoholahti-Koskela proposal map
+  - scan by Otso Kivekäs, composition Chris Helenius
+  - WTFPL licence - http://www.wtfpl.net
+  - based on an official government proposal document, so should be thus free to use
+
 * open layers dark theme
   - license: https://github.com/developmentseed/openlayers_themes/
   - would seem to have both GPL v2 and BSD license
@@ -36,9 +41,7 @@ Licenses and copyrights
   - published under the 2-clause BSD license
   
 * code from old oakland, use approved by michail migurski
-  "I think it's great that you're using the code in this way!
-   The map looks fantastic and the addition of the transparency slider 
-   is a really nice touch."
+  - "I think it's great that you're using the code in this way!"
    
 * Modest Maps, wscompose
   - BSD-license

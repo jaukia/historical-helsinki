@@ -10,9 +10,11 @@ function init_slider() {
     }
     slider.setValue(209);
     slider.subscribe("change", function(offsetFromStart) {
+        // FIXME: loop all layers, or do this only for the visible layers
       map.layers['Map from 1837'].setOpacity(slider.getRealValue());
       map.layers['Map from 1897'].setOpacity(slider.getRealValue());
       map.layers['Aerial photos 1943'].setOpacity(slider.getRealValue());
+      map.layers['Smith-Polvinen plan for Helsinki'].setOpacity(slider.getRealValue());
     });
 }
 
@@ -142,12 +144,20 @@ function HelsinkiMap(div) {
         visibility: false
     };
     
+    var layerSmithPolvinenArgs = {
+        buffer: 0,
+        getURL: getGetURLMethod('tiles/smithpolvinen-m1', 'png'),
+        isBaseLayer: false,
+        visibility: false
+    };
+    
     this.map = new OpenLayers.Map(div, mapArgs);
     
     this.layers = {};
     this.addHistoricalLayer('Map from 1837', layer1837Args);
     this.addHistoricalLayer('Map from 1897', layer1897Args);
     this.addHistoricalLayer('Aerial photos 1943', layer1943Args);
+    this.addHistoricalLayer('Smith-Polvinen plan for Helsinki', layerSmithPolvinenArgs);
     this.addHistoricalLayer('Present Day (VEarth road)', layerVEarthArgs);
     this.addHistoricalLayer('Present Day (VEarth aerial)', layerAerialArgs);
 
