@@ -6,11 +6,15 @@ rm -r tmp
 mkdir tmp
 
 # fast
-gdal_translate -a_srs "+proj=latlong +ellps=WGS84 +datum=WGS84 +no_defs" -gcp 4657 7606 24.952672 60.167418 -gcp 1393 7556 24.912784 60.167723 -gcp 5875 1275 24.967375 60.205708 -gcp 301 7218 24.899483 60.169818 -gcp 6209 4281 24.972028 60.187185 -of VRT source-maps/smithpolvinen-m1.tif tmp/smithpolvinen-m1.vrt
+gdal_translate -a_srs "+proj=latlong +ellps=WGS84 +datum=WGS84 +no_defs" -gcp 4657 7606 24.952672 60.167418 -gcp 1393 7556 24.912784 60.167723 -gcp 301 7218 24.899483 60.169818 -gcp 6240 4355 24.972028 60.187185 -gcp 2761 8363 24.929392 60.162796 -gcp 4580 8486 24.951673 60.162052 -of VRT source-maps/smithpolvinen-m1.tif tmp/smithpolvinen-m1.vrt
+
+# this is old and distorting: -gcp 5875 1275 24.967375 60.205708
 
 # fast
+# order 2 requires 6 gcps, order 3 requires 10.
+# order 2 didn't work well with 7 points.
 rm tmp/smithpolvinen-m1.tif
-gdalwarp -t_srs "+proj=latlong +ellps=WGS84 +datum=WGS84 +no_defs" -r cubic tmp/smithpolvinen-m1.vrt tmp/smithpolvinen-m1.tif
+gdalwarp -t_srs "+proj=latlong +ellps=WGS84 +datum=WGS84 +no_defs" -r cubic -order 1 tmp/smithpolvinen-m1.vrt tmp/smithpolvinen-m1.tif
 
 rm -r out
 mkdir out
