@@ -127,13 +127,16 @@ def decompose(provider, coord, tiffs, tiffs_northwest, tiffs_southeast):
     
     if alpha.getextrema()!=(0,0):
       print "Not empty"
-      mask = PIL.Image.eval(alpha, lambda a: 255 if a<128 else 0)
-      im = output.convert('RGB').convert('P', palette=PIL.Image.ADAPTIVE, colors=255)
-      # paste index 255 to the pixels in file where mask = 0
-      im.paste(255, mask)
-      #output.save(filename, "PNG", transparency=255, optimize=1)
+      ## 8-bit png
+      #mask = PIL.Image.eval(alpha, lambda a: 255 if a<128 else 0)
+      #im = output.convert('RGB').convert('P', palette=PIL.Image.ADAPTIVE, colors=255)
+      ## paste index 255 to the pixels in file where mask = 0
+      #im.paste(255, mask)
       # transparency color index
-      im.save(filename, "PNG", optimize=1, transparency=255)
+      #im.save(filename, "PNG", optimize=1, transparency=255)
+      
+      ## 24-bit png
+      output.save(filename, "PNG", optimize=1)
     else:
       print "Empty"
     
