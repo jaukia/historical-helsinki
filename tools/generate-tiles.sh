@@ -19,7 +19,7 @@ gdalwarp -t_srs "+proj=latlong +ellps=WGS84 +datum=WGS84 +no_defs" -r cubic -ord
 rm -r out
 mkdir out
 
-# generates ~ 10k images, takes ~ 30min : started 12:50?
+# generates ~ 10k images, takes ~ 40min
 python decompose/decompose.py tmp/smithpolvinen-m1.tif
 
 rm -r ../tiles/smithpolvinen-m1
