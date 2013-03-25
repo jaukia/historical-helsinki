@@ -57,7 +57,7 @@ def image_bounds(filename):
     return ModestMaps.Geo.Location(max(lats), min(lons)), \
            ModestMaps.Geo.Location(min(lats), max(lons))
 
-def decompose(provider, coord, tiffs, tiffs_northwest, tiffs_southeast):
+def decompose(provider, coord, tiffs, tiffs_northwest, tiffs_southeast, format):
     """
     """
     #filename = 'out/%(zoom)d-r%(row)d-c%(column)d.jpg' % coord.__dict__
@@ -109,10 +109,10 @@ def decompose(provider, coord, tiffs, tiffs_northwest, tiffs_southeast):
                 os.remove(warped_png)
     
     else:
-        topleft = decompose(provider, coord.zoomBy(1), tiffs, tiffs_northwest, tiffs_southeast).resize((128, 128), PIL.Image.ANTIALIAS)
-        topright = decompose(provider, coord.zoomBy(1).right(), tiffs, tiffs_northwest, tiffs_southeast).resize((128, 128), PIL.Image.ANTIALIAS)
-        bottomleft = decompose(provider, coord.zoomBy(1).down(), tiffs, tiffs_northwest, tiffs_southeast).resize((128, 128), PIL.Image.ANTIALIAS)
-        bottomright = decompose(provider, coord.zoomBy(1).down().right(), tiffs, tiffs_northwest, tiffs_southeast).resize((128, 128), PIL.Image.ANTIALIAS)
+        topleft = decompose(provider, coord.zoomBy(1), tiffs, tiffs_northwest, tiffs_southeast, format).resize((128, 128), PIL.Image.ANTIALIAS)
+        topright = decompose(provider, coord.zoomBy(1).right(), tiffs, tiffs_northwest, tiffs_southeast, format).resize((128, 128), PIL.Image.ANTIALIAS)
+        bottomleft = decompose(provider, coord.zoomBy(1).down(), tiffs, tiffs_northwest, tiffs_southeast, format).resize((128, 128), PIL.Image.ANTIALIAS)
+        bottomright = decompose(provider, coord.zoomBy(1).down().right(), tiffs, tiffs_northwest, tiffs_southeast, format).resize((128, 128), PIL.Image.ANTIALIAS)
         
         print ' ' * coord.zoom, filename
         
@@ -127,16 +127,21 @@ def decompose(provider, coord, tiffs, tiffs_northwest, tiffs_southeast):
     
     if alpha.getextrema()!=(0,0):
       print "Not empty"
-      ## 8-bit png
-      #mask = PIL.Image.eval(alpha, lambda a: 255 if a<128 else 0)
-      #im = output.convert('RGB').convert('P', palette=PIL.Image.ADAPTIVE, colors=255)
-      ## paste index 255 to the pixels in file where mask = 0
-      #im.paste(255, mask)
-      # transparency color index
-      #im.save(filename, "PNG", optimize=1, transparency=255)
       
-      ## 24-bit png
-      output.save(filename, "PNG", optimize=1)
+      if format=="png24":
+        ## 24-bit png
+        output.save(filename, "PNG", optimize=1)
+      else if format=="jpeg":
+        ## JPEG
+        output.save(filename, "JPEG", optimize=1)
+      else:
+        ## 8-bit png
+        mask = PIL.Image.eval(alpha, lambda a: 255 if a<128 else 0)
+        im = output.convert('RGB').convert('P', palette=PIL.Image.ADAPTIVE, colors=255)
+        # paste index 255 to the pixels in file where mask = 0
+        im.paste(255, mask)
+        # transparency color index
+        im.save(filename, "PNG", optimize=1, transparency=255)
     else:
       print "Empty"
     
@@ -148,7 +153,9 @@ if __name__ == '__main__':
 
     tiffs = []
     
-    for tiff in sys.argv[1:]:
+    format = sys.argv[1]
+    
+    for tiff in sys.argv[2:]:
         tiff_northwest, tiff_southeast = image_bounds(tiff)
         tiffs.append({'file': tiff, 'northwest': tiff_northwest, 'southeast': tiff_southeast})
 
@@ -162,4 +169,4 @@ if __name__ == '__main__':
     print northwest, southeast
     
     decompose(ModestMaps.Microsoft.AerialProvider(), ModestMaps.Core.Coordinate(0, 0, 0),
-              tiffs, northwest, southeast)
+              tiffs, northwest, southeast, format)

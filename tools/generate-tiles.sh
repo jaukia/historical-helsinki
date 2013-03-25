@@ -20,7 +20,7 @@ rm -r out
 mkdir out
 
 # generates ~ 10k images, takes ~ 40min
-python decompose/decompose.py tmp/smithpolvinen-m1.tif
+python decompose/decompose.py png24 tmp/smithpolvinen-m1.tif
 
 rm -r ../tiles/smithpolvinen-m1
 mv out ../tiles/smithpolvinen-m1
@@ -40,7 +40,7 @@ rm -r out
 mkdir out
 
 # generates ~ 31k images, takes ~ 12 hours
-python decompose/decompose.py tmp/helsinki1943-warped-color.tif
+python decompose/decompose.py png8 tmp/helsinki1943-warped-color.tif
 
 rm -r ../tiles/helsinki1943
 mv out ../tiles/helsinki1943
@@ -63,7 +63,7 @@ rm -r out
 mkdir out
 
 # generates ~ 10k images, takes ~ 20min
-python decompose/decompose.py tmp/helsinki1837-convcoords.tif
+python decompose/decompose.py png8 tmp/helsinki1837-convcoords.tif
 
 rm -r ../tiles/helsinki1837
 mv out ../tiles/helsinki1837
@@ -88,7 +88,7 @@ rm -r out
 mkdir out
 
 # generates ~ 10k images, takes ~ 20min
-python decompose/decompose.py tmp/helsinki1897-convcoords.tif
+python decompose/decompose.py png8 tmp/helsinki1897-convcoords.tif
 
 rm -r ../tiles/helsinki1897
 mv out ../tiles/helsinki1897

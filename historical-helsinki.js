@@ -1,20 +1,52 @@
+/*
+ * Layer selectors
+ */
+
+$("select").change(function() {
+    var value = this.options[this.selectedIndex].value;  
+    map.showHistoricalLayer(value);
+    var $mapDetails = $("#"+value+"-details");
+    $(".mapDetails div").hide();
+    $mapDetails.show();
+});
+
+$(document).ready(function() {
+    function selectBackgroundLayer(which) {
+        if(which==="road") {
+            map.showBaseLayer('Present Day (VEarth road)');
+        } else {
+            map.showBaseLayer('Present Day (VEarth aerial)');
+        }
+        $(".backgroundMapLink").removeClass("active");
+        $(this).addClass("active");
+    }
+    
+    $("#roadMapLink").click(function() {
+        selectBackgroundLayer.call(this,"road");
+    });
+    
+    $("#aerialMapLink").click(function() {
+        selectBackgroundLayer.call(this,"aerial");
+    });
+});
+
 
 /*
  * Slider setup
  */
 
 function init_slider() {
-    var slider = YAHOO.widget.Slider.getHorizSlider("sliderbg", "sliderthumb", 0, 209, 10);
+    var slider = YAHOO.widget.Slider.getHorizSlider("sliderbg", "sliderthumb", 0, 250, 0);
     slider.getRealValue = function() {
       return Math.round(this.getValue() * 0.005 * 100) / 100;
     }
-    slider.setValue(209);
+    slider.setValue(250);
     slider.subscribe("change", function(offsetFromStart) {
         // FIXME: loop all layers, or do this only for the visible layers
-      map.layers['Map from 1837'].setOpacity(slider.getRealValue());
-      map.layers['Map from 1897'].setOpacity(slider.getRealValue());
-      map.layers['Aerial photos 1943'].setOpacity(slider.getRealValue());
-      map.layers['Smith-Polvinen plan for Helsinki'].setOpacity(slider.getRealValue());
+      map.layers['map1837'].setOpacity(slider.getRealValue());
+      map.layers['map1897'].setOpacity(slider.getRealValue());
+      map.layers['aerial1943'].setOpacity(slider.getRealValue());
+      map.layers['smithpolvinen'].setOpacity(slider.getRealValue());
     });
 }
 
@@ -154,11 +186,11 @@ function HelsinkiMap(div) {
     this.map = new OpenLayers.Map(div, mapArgs);
     
     this.layers = {};
-    this.addHistoricalLayer('Map from 1837', layer1837Args);
-    this.addHistoricalLayer('Map from 1897', layer1897Args);
-    this.addHistoricalLayer('Aerial photos 1943', layer1943Args);
-    this.addHistoricalLayer('Smith-Polvinen plan for Helsinki', layerSmithPolvinenArgs);
-    this.addHistoricalLayer('Present Day (VEarth road)', layerVEarthArgs);
+    this.addHistoricalLayer('map1837', layer1837Args);
+    this.addHistoricalLayer('map1897', layer1897Args);
+    this.addHistoricalLayer('aerial1943', layer1943Args);
+    this.addHistoricalLayer('smithpolvinen', layerSmithPolvinenArgs);
+    this.addOSMLayer('Present Day (VEarth road)');
     this.addHistoricalLayer('Present Day (VEarth aerial)', layerAerialArgs);
 
     this.map.addControl(new OpenLayers.Control.LayerSwitcher());
@@ -187,6 +219,11 @@ HelsinkiMap.prototype = {
     
     addHistoricalLayer: function(name, args) {
         this.layers[name] = new OpenLayers.Layer.TMS(name, null, args);
+        this.map.addLayer(this.layers[name]);
+    },
+    
+    addOSMLayer: function(name) {
+        this.layers[name] = new OpenLayers.Layer.OSM("OpenStreetMap","http://otile1.mqcdn.com/tiles/1.0.0/osm/${z}/${x}/${y}.png",{numZoomLevels: 19});
         this.map.addLayer(this.layers[name]);
     },
     
