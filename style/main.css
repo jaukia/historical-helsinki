@@ -18,10 +18,7 @@ select {
     font-size:15px;
     max-width:260px;
     margin-bottom:10px;
-    border:0px;
-    border-radius:2px;
-    background-color:#333;
-    color:#eee;
+    border:1px solid #bbb;
     height:35px;
     line-height:35px;
     padding:6px;
@@ -85,6 +82,14 @@ select:focus {
     overflow:hidden;
 }
 
+#map {
+    position:absolute;
+    left:300px;
+    top:0;
+    bottom:0;
+    right:0;
+}
+
 body,html {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -96,7 +101,7 @@ body,html {
 
 div.mapDetails {
     position:absolute;
-    top:210px;
+    top:245px;
     bottom:110px;
     right:-10px;
     left:-10px;
@@ -231,14 +236,6 @@ ul li {
 
 .topLabel {
     display:inline-block;
-}
-
-#map {
-    position:absolute;
-    left:300px;
-    top:0;
-    bottom:0;
-    right:0;
 }
 
 a {
