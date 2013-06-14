@@ -1,4 +1,11 @@
+**************
+MAP DATA TO USE
+**************
 
+Information on maps that could be added
+
+MAP DATA FROM OTSO
+------------------
 
 Otso Kivekäs Tässä on tuo 1696 niin kovalla resolla kuin mihin skanneri pystyy. Pystyisi se parempaankin, mutta sitten se ei enää osaa lähettää sitä http://aulis.sange.fi/~otso/stuff/helsinki-1696-keskusta.jpg ja http://aulis.sange.fi/~otso/stuff/helsinki-1696-koko.jpg
 
@@ -17,3 +24,11 @@ aulis.sange.fi
 Thursday at 21:01 · Unlike · 1
 
 Otso Kivekäs Ja nyt siellä on vielä tuo koko kartta paljon pienemmässä mittakaavassa, kahdessa osassa
+
+MAP DATA VIA TIMO SMURA
+------------------
+
+Haagalaisena eka ehdotukseni olis tietty Eliel Saarisen suuret (toteuttamatta jääneet) suunnitelmat:
+
+http://137.163.136.28/HELKA/materiaali/KARTTA_MAT/0630_865_919_1-5.pdf
+http://www.hri.fi/fi/data/munkkiniemen-yhdyskunta-ja-haagan-kauppala-vuonna-1929/
