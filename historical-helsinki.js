@@ -35,6 +35,10 @@ $(document).ready(function() {
  * Slider setup
  */
 
+function init_lens() {
+    
+}
+
 function init_slider() {
     var slider = YAHOO.widget.Slider.getHorizSlider("sliderbg", "sliderthumb", 0, 250, 0);
     slider.getRealValue = function() {
@@ -235,9 +239,11 @@ HelsinkiMap.prototype = {
     showHistoricalLayer: function(name) {
         for(var i in this.layers) {
             if(i==name) {
+                $(this.layers[i].div).addClass("selectedHistorical");
                 //this.layers[i].display(true);
                 this.layers[i].setVisibility(true);
             } else if(!this.layers[i].isBaseLayer) {
+                $(this.layers[i].div).removeClass("selectedHistorical");
                 //this.layers[i].display(false);
                 this.layers[i].setVisibility(false);
             }
