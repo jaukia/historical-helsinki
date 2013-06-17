@@ -28,7 +28,7 @@ select:focus {
     outline: none;
 }
 
-.backgroundMapLink, .backgroundMapLink:hover {
+.itemLink, .itemLink:hover {
     padding:3px;
     padding-left:4px;
     padding-right:4px;
@@ -37,7 +37,7 @@ select:focus {
     border-radius:2px;
 }
 
-.backgroundMapLink.active, .backgroundMapLink.active:hover {
+.itemLink.active, .itemLink.active:hover {
     border-color:#333;
     background-color:#333;
     color:#eee;
@@ -45,8 +45,9 @@ select:focus {
 
 /* Slider styling */
 
-.sliderlabel {
-    float:left;
+#slider {
+    margin-top:25px;
+    width:100%;
 }
 
 .sliderclearer {

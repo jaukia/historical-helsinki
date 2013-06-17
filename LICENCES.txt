@@ -34,8 +34,8 @@ Licenses and copyrights
   - copyright michail migurski
   - no licence info
   
-* yahoo slider widget
-  - licensed under the BSD license
+* nouislider
+  - wtfpl public license
   
 * open layers
   - published under the 2-clause BSD license

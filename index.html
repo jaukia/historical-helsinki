@@ -5,7 +5,11 @@
 	<title>Historical Helsinki</title>
    
     <link rel="stylesheet" href="style/avgrund.css" />
+    <link rel="stylesheet" href="style/layer-lens.css" type="text/css">
+    <link rel="stylesheet" href="style/nouislider.hh.css" type="text/css">
+
     <link rel="stylesheet" href="style/main.css" />
+    
 </head>
 <body>
     
@@ -43,46 +47,38 @@
             <div class="mainPanelContent">        
                 <p>
                     <p class="topLabel" style="margin-top:0px">Choose a map:</p>
-                   
-                    <select>
-                        <option disabled="disabled">Select a Historical Layer...</option>
-                        <option value="map1837">1837: Map by C.W. Gyldén</option>
-                        <option selected="selected" value="map1897">1897: Map by Matkailija-Yhdistys</option>
-                        <option value="aerial1943">1943: Aerial photos</option>
-                        <option value="smithpolvinen">1968: Smith-Polvinen plan (II, M1)</option>
-                    </select>
+                    <select></select>
                 </p>
                 
-                <div id="slider">
-                    <div class="sliderlabel">
-                    <span class="topLabel">Transparency:</span>
-                    </div>
-                    <div id="sliderbg">
-                        <div id="sliderthumb"></div>
-                    </div>
-                    <div class="sliderclearer"></div>
+                <p>
+                    <span class="topLabel">Tool:&nbsp;</span>
+                    <a href="#" id="lensModeLink" class="itemLink modeLink active">Lens</a>
+                    <a href="#" id="transparencyModeLink" class="itemLink modeLink">Transparency</a>
+                </p>
+                
+                <div id="slider" class="noUiSlider" style="display:none">
                 </div>
                 
                 <div class="mapDetails">
-                    <div id="map1837-details" style="display:none">
+                    <div id="helsinki1837-details" style="display:none">
                         <h3>Map by C.W. Gyldén (1837)</h3>
                         <p>Compiled by C.W. Gyldén. He was the over director of National Land Survey of Finland. In addition to this, he owned to whole Lauttasaari.</p>
                         <p>Interesting in this map are the tolls along the roads to the north <i>"Tavast tull"</i> and north-west <i>"Esbo tull"</i>. You can also see the long and short bridges leading to Siltasaari, of which nowadays only the long one, <i>"Pitkäsilta"</i> is left.</p>
                         <p>The railway to city centre is missing, in the place of the current central railway station there is the Glo (Kluuvi) bay.</p>
                     </div>
-                    <div id="map1897-details">
+                    <div id="helsinki1897-details">
                         <h3>Map by Suomen Matkailija-Yhdistys (1897)</h3>
                         <p>From "Suomi-Kartasto", a map book over Finland, collected by Suomen Matkailija-Yhdistys.</p>
                         <p>Interesting details in the map include planned road network in Töölö and <i>"Linjat"</i> in Hakaniemi that extend up to <i>"Kuudes linja"</i>. Kaisaniemenkatu does not exist yet.
                         <p>See <a target="_blank" href="http://www.histdoc.net/edlund/index.html">photos over Helsinki from the year before</a>.</p>
                     </div>
-                    <div id="aerial1943-details" style="display:none">
+                    <div id="helsinki1943-details" style="display:none">
                         <h3>Aerial Photos of Helsinki (1943)</h3>
                         <p>The aerial photos were taken before the massive bombings in 1944. The quality of images is very good.</p>
                         
                         <p>One interesting detail is the bath house in Kaivopuisto, which still exists in 1944. Lauttasaari and Kulosaari are still mostly unbuilt.</p>
                     </div>
-                    <div id="smithpolvinen-details" style="display:none">
+                    <div id="smithpolvinen-m1-details" style="display:none">
                         <h3>Smith-Polvinen plan (1968)</h3>
                         <p>This is a vision of alternative Helsinki which was never built. The M1 highway cuts through Punavuori and connects Lahdenväylä with Länsiväylä.</p>
                         
@@ -92,8 +88,8 @@
                 
                 <p class="mapTypeSelector">
                     <span class="topLabel">Background:</span>
-                    <a id="roadMapLink" href="#" class="mapLink backgroundMapLink active">Road</a>
-                    <a id="aerialMapLink" class="mapLink backgroundMapLink" href="#">Aerial</a>
+                    <a id="roadMapLink" href="#" class="mapLink backgroundMapLink itemLink active">Road</a>
+                    <a id="aerialMapLink" class="mapLink backgroundMapLink itemLink" href="#">Aerial</a>
                 </p>
                
                 <a href="#" onclick="Avgrund.show('.avgrund-popup');" id="infoLink">i</a>
@@ -116,14 +112,15 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="lib/jquery-1.9.0.min.js"><\/script>')</script>
     
-     <script src="lib/openlayers/OpenLayers.js" type="text/javascript"></script>
+    <script src="lib/openlayers/OpenLayers.js" type="text/javascript"></script>
     <script src="lib/avgrund.js" type="text/javascript"></script>
     
     <script src="historical-helsinki.js" type="text/javascript"></script>
     
-    <script type="text/javascript" src="lib/slider/utilities.js"></script>
-    <script type="text/javascript" src="lib/slider/slider-min.js"></script>
-
+    <script type="text/javascript" src="lib/LayerLens.js"></script>
+    
+    <script type="text/javascript" src="lib/jquery.nouislider.min.js"></script>
+    
     <!-- Google Analytics -->
     <script type="text/javascript">
       var _gaq = _gaq || [];
@@ -136,11 +133,6 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-
-    <script type="text/javascript">
-        var map = new HelsinkiMap('map');
-        init_slider();
-    </script>
-    
+ 
 </body>
 </html>
