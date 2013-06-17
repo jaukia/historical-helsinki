@@ -1,7 +1,13 @@
-Licenses and copyrights
+*************************
+* Licenses and copyrights
+*************************
+
+CORE CODE
 
 * historical helsinki
-  - dual license under MIT and GPL v2
+  - licensed under MIT
+
+MAP DATA
 
 * aerial photos helsinki 1943
   - Original source: http://www.hri.fi/fi/data/helsingin-ortokuva-1943/
@@ -25,6 +31,11 @@ Licenses and copyrights
   - WTFPL licence - http://www.wtfpl.net
   - based on an official government proposal document, so should be thus free to use
 
+OTHER CODE
+
+* layerlens
+  - license: Clear BSD license
+  
 * open layers dark theme
   - license: https://github.com/developmentseed/openlayers_themes/
   - would seem to have both GPL v2 and BSD license
