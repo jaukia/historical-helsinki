@@ -14,10 +14,9 @@ $(document).ready(function() {
     var initialLayer = 1;
                            
     map = new HistoricalMap('map');
-    map.setCenter(60.166920, 24.936841, 13);
+    map.setCenter(60.166920, 24.936841, 14);
 
     map.setSelectedLayerChangeListener(function(mapName) {
-        console.log("hiphei",mapName);
         $(".mapDetails > div").hide();
         $(".mapDetails #"+mapName+"-details").show();
     });
@@ -50,52 +49,67 @@ $(document).ready(function() {
 
     // BACKGROUND LAYER SELECTOR
     
-    $("#roadMapLink").click(function() {
-        if(!$(this).hasClass("active")) {
-            map.selectBaseLayer('bg-road');
-            $(".backgroundMapLink").toggleClass("active");
-        }
-    });
-    
-    $("#aerialMapLink").click(function() {
-        if(!$(this).hasClass("active")) {
+    $("#bgToggle").click(function() {
+        var $this = $(this);
+        if($this.text()==="Road") {
+            $this.text("Aerial");
             map.selectBaseLayer('bg-aerial');
-            $(".backgroundMapLink").toggleClass("active");
+            $("body").addClass("dark-bg");
+        } else {
+            $this.text("Road");
+            map.selectBaseLayer('bg-road');
+            $("body").removeClass("dark-bg");
         }
     });
     
     // MODE SELECTOR
     
-    $("#lensModeLink").click(function() {
-        if(!$(this).hasClass("active")) {
-            map.setMode('lens');
-            $("#slider").hide();
-            $(".modeLink").toggleClass("active");
-        }
-    });
-    
-    $("#transparencyModeLink").click(function() {
-        if(!$(this).hasClass("active")) {
+    $("#modeToggle").click(function() {
+        var $this = $(this);
+        if($this.text()==="Lens") {
+            $this.text("Transparency");
             map.setMode('transparency');
-            $("#slider").show();
-            $(".modeLink").toggleClass("active");
+            $("#transparencySliderContainer").show();
+            $("#lensSliderContainer").hide();
+        } else {
+            $this.text("Lens");
+            map.setMode('lens');
+            $("#transparencySliderContainer").hide();
+            $("#lensSliderContainer").show();
         }
     });
     
-    // SLIDER SETUP
+    // TRANSPARENCY SLIDER SETUP
     
-    $("#slider").noUiSlider({
+    $("#transparencySlider").noUiSlider({
         range: [0, 255],
-        start: [200],
+        start: [255],
         handles: 1,
-        step: 1,
-        slide: function(){
+        step: 5,
+        slide: function() {
             var value = $(this).val();
-            console.log("slide",value);
             var roundValue = value/255.0;
             map.setTransparency(roundValue);
         }
     });
+    
+    // LENS SLIDER SETUP
+    
+    $("#lensSlider").noUiSlider({
+        range: [0, 512],
+        start: [128],
+        handles: 1,
+        step: 5,
+        slide: function() {
+            var value = $(this).val();
+            var roundValue = value/255.0;
+            map.setLensSize(roundValue);
+        }
+    });
+    
+    // SELECT LIST STYLING
+    
+    //$("select").customSelect();
     
 });
 
@@ -135,16 +149,6 @@ function constructGetURLMethod(bucket_id, file_ext) {
 
 function HistoricalMap(div) {
 
-    var mapArgs = {
-        maxExtent: new OpenLayers.Bounds(-20037508.3427892, -20037508.3427892, 20037508.3427892, 20037508.3427892),
-        numZoomLevels: 18,
-        maxResolution: 156543.0339,
-        units: 'm',
-        controls:[], 
-        displayProjection:  new OpenLayers.Projection('EPSG:4326'),
-        projection: 'EPSG:900913'
-    };
-    
     var layerAerialArgs = {
         buffer: 0,
         getURL: function(bounds) {
@@ -157,21 +161,29 @@ function HistoricalMap(div) {
         isBaseLayer: true
     };
     
-    this.map = new OpenLayers.Map(div, mapArgs);
+    this.map = new OpenLayers.Map(div, OpenLayers.Util.applyDefaults({
+        displayProjection:  new OpenLayers.Projection('EPSG:4326'),
+        projection: 'EPSG:900913',
+        numZoomLevels: 19,
+        controls: [
+            new OpenLayers.Control.Zoom(),
+            new OpenLayers.Control.Navigation(),
+            new OpenLayers.Control.TouchNavigation()
+        ]
+    }));
     
     this.layers = {};
+    this.markerLayers = {};
     
     this.addOSMLayer('bg-road');
     this.addTMSLayer('bg-aerial', layerAerialArgs);
 
-    this.map.addControl(new OpenLayers.Control.LayerSwitcher());
-    this.map.addControl(new OpenLayers.Control.Navigation());
-    this.map.addControl(new OpenLayers.Control.PanZoomBar());
     
     this.selectedLayer = null;
     this.mode = "lens";
     this.transparency = 250;
     this.selectedLayerChangeListener = null;
+    this.lensSize = 0.5;
 }
 
 HistoricalMap.prototype = {
@@ -200,6 +212,71 @@ HistoricalMap.prototype = {
             visibility: false
         };
         return this.addTMSLayer(name, args);
+    },
+    
+    createMarker: function(data,targetMap) {
+    
+        var size = new OpenLayers.Size(35,35);
+        var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
+        var icon = new OpenLayers.Icon('img/marker.png',size,offset);
+        
+        var lonlat = (new OpenLayers.LonLat.fromArray(data.pos)).transform(
+            new OpenLayers.Projection("EPSG:4326"),
+            this.map.getProjectionObject()
+        );
+        
+        var content = data.content;
+
+        var marker = new OpenLayers.Marker(lonlat,icon);
+        
+        var popup;
+        var popupShown = false;
+        
+        // FIXME: handle popups being created multiple times on mouseovers!
+        
+        marker.events.register('mousedown', marker, function(evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            
+            if(!popup) {
+                popup = new OpenLayers.Popup.FramedCloud(null,
+                    lonlat,
+                    new OpenLayers.Size(330,200),
+                    content,
+                    null,
+                    true, function(evt) {
+                        popup.hide();
+                        popupShown = false;
+                    });
+                popup.panMapIfOutOfView = false;
+                popup.autoSize = false;
+                targetMap.addPopup(popup);
+            } else {
+                if(!popupShown) {
+                    popup.show();
+                }
+            }
+            popupShown = true;
+            
+            return false;
+        });
+        
+        /*marker.events.register('mouseout', marker, );*/
+
+        return marker;
+    },
+    
+    createMarkerLayer: function(name,targetMap) {
+        var markerLayer = new OpenLayers.Layer.Markers("name");
+        this.markerLayers[name] = markerLayer;
+        
+        markerLayer.addMarker(
+            this.createMarker({pos:[24.936841,60.166920], content: "Compiled by C.W. Gyldén. He was the over director of National Land Survey of Finland. In addition to this, he owned to whole Lauttasaari. Interesting in this map are the tolls along the roads to the north 'Tavast tull' and north-west 'Esbo tull'. You can also see the long and short bridges leading to Siltasaari, of which nowadays only the long one, 'Pitkäsilta' is left. The railway to city centre is missing, in the place of the current central railway station there is the Glo (Kluuvi) bay."},targetMap)
+        );
+        
+        
+        
+        return markerLayer;
     },
     
     selectBaseLayer: function(name) {
@@ -243,6 +320,36 @@ HistoricalMap.prototype = {
         this.selectedLayerChangeListener = listenerFunc;
     },
     
+    setLensSize: function(lensSize) {
+        this.lensSize = lensSize;
+        
+        var pxSize = 100+Math.round((lensSize*400)/2)*2;
+        
+        var elem = $(".olControlLayerLens");
+        
+        var oldPxSize = elem.width();
+        var halfSizeDiff = Math.round((oldPxSize-pxSize)/2);
+        
+        elem.width(pxSize+"px");
+        elem.height(pxSize+"px");
+        
+        var leftPos = parseInt(elem.css("left"),10);
+        if(elem.css("left")==="auto") {
+            leftPos = 400;
+        }
+        
+        var topPos = parseInt(elem.css("top"),10);
+        if(elem.css("top")==="auto") {
+            topPos = 400;
+        }
+        
+        elem.css("left",leftPos+halfSizeDiff+"px");
+        elem.css("top", topPos+halfSizeDiff+"px");
+        
+        this.layerLens.update();
+            
+    },
+    
     setMode: function(mode) {
     
         if(mode==="transparency") {
@@ -276,9 +383,15 @@ HistoricalMap.prototype = {
                 this.layerLens = new OpenLayers.Control.LayerLens(lensLayer);
                 this.map.addControl(this.layerLens);
             }
+            
+            this.layerLens.addLayer(this.createMarkerLayer("kukkanen",this.layerLens.getMap()));
+            //this.layerLens.addLayer(this.createMarkerLayer("kukkanen",this.map));
+            
             this.layerLens.update();
             
             this.selectedLayer.setVisibility(false);
+            
+            this.setLensSize(this.lensSize);
             
         }
     }

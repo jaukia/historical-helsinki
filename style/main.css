@@ -4,24 +4,47 @@
     display: none !important;
 }
 
-.olControlLayerSwitcher .layersDiv {
-    background-color: rgba(45, 45, 45, 0.9) !important;
+.olButton {
+    background-color: rgba(0,0,0,0.7) !important;
+    -webkit-backface-visibility: hidden;
+    border-radius:0px !important;
+    width:40px!important;
+    height:40px!important;
+    line-height:40px!important;
+    font-size:19px!important;
+    font-family: Menlo, Courier, Courier New !important;
 }
 
-.olControlLayerSwitcher {
-    display: none;
+.olControlZoom {
+    border-radius:0px !important;
+    background-color:transparent !important;
+}
+
+/* Avgrund overrides */
+
+.avgrund-popup {
+    border-radius: 0px;
+    z-index: 300;
+    height: auto !important;
 }
 
 /* Layer selector */
 
 select {
-    font-size:15px;
-    max-width:260px;
-    margin-bottom:10px;
-    border:1px solid #bbb;
-    height:35px;
-    line-height:35px;
-    padding:6px;
+    background-color:#f6f6f6;
+    /* checkmark breaks on safari if size is larger than 20px */
+    font-size:20px !important;
+    line-height:20px;
+    height:40px;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    display: inline-block;
+}
+
+.customSelectInner {
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 select:focus {
@@ -33,7 +56,7 @@ select:focus {
     padding-left:4px;
     padding-right:4px;
     text-decoration:none;
-    border:1px solid white;
+    border:1px solid transparent;
     border-radius:2px;
 }
 
@@ -45,47 +68,27 @@ select:focus {
 
 /* Slider styling */
 
-#slider {
-    margin-top:25px;
-    width:100%;
-}
-
-.sliderclearer {
-    clear:both;
-}
-
-#sliderbg {
-    position: relative;
-    height: 20px;
-    width: 260px;
-    background: #fff url("../lib/slider/bg-h.gif") repeat-x 0 0;
-    float:left;
-}
-
-#sliderthumb {
-    position: absolute;
-    height: 21px;
-    width: 17px;
-    background: #fff url("../lib/slider/thumb-s.gif") repeat-x 0 0;
-    margin-top:3px;
-    left: 0; /* assumed, but for redundancy */
+.slider {
+    float:right;
+    width:200px!important;
+    margin-top:17px;
 }
 
 /* Page styling */
 
 #mainPanel {
     position:absolute;
-    width:300px;
     top:0;
-    bottom:0;
-    left:0;
+    right:0;
     margin:0;
     overflow:hidden;
+    z-index:100;
+    text-align:right;
 }
 
 #map {
     position:absolute;
-    left:300px;
+    left:0;
     top:0;
     bottom:0;
     right:0;
@@ -98,6 +101,11 @@ body,html {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+p {
+    font-size: 14px;
+    line-height: 19px;
 }
 
 div.mapDetails {
@@ -137,11 +145,32 @@ div.mapDetails {
     padding-top:0px;
 }
 
-.mapTypeSelector {
-    position:absolute;
-    bottom:50px;
-    left:20;
-    right:20;
+.mainPanelContent div {
+    margin-top:14px;
+    margin-bottom:14px;
+}
+
+.itemToggle {
+    display:inline;
+}
+
+.itemToggle, .customSelectInner {
+    color: #05f;
+    text-decoration: none;
+    border-bottom: 1px #05f dotted;
+}
+
+body.dark-bg .itemToggle {
+    color: #59f;
+    border-bottom-color: #59f;
+}
+
+body.dark-bg .topLabel {
+    color: #eee;
+}
+
+body.dark-bg #infoBox h1 {
+    color: #eee;
 }
 
 .mapLink {
@@ -164,22 +193,19 @@ html, body {
     height:100%;
 }
 
-h1 {
-    margin:0;
-    padding:20px;
+.topLabel, h1, .itemToggle, .customSelectInner, select {
+    font-size: 32px;
     font-weight: 300;
-    /*color: #ddd;
-    background-color:#222222;*/
-    padding-bottom:10px;
+    -webkit-backface-visibility: hidden;
 }
 
-h1, h2 {
-    color: #aa9999;
+h1 {
+    margin-top:0px;
 }
 
 h3 {
     margin-top:0px;
-    color: #504444;
+    color: #444444;
 }
 
 #pageContent {
@@ -192,29 +218,26 @@ h3 {
     padding:0;
 }
 
-#infoLink {
-    display:block;
-    width:40px;
-    height:40px;
-    background-color:#333;
+#infoBox {
     position:absolute;
-    left:0px;
+    right:0px;
     bottom:0px;
-    text-align:center;
-    color:white;
-    font-weight:bold;
-    text-decoration:none;
-    line-height:42px;
-    font-family:Menlo, Courier, Courier New;
-    overflow:hidden;
+    cursor:pointer;
+    z-index:200;
 }
 
-.social-buttons {
+#infoBox h1 {
     position:absolute;
-    bottom:10px;
-    left:60px;
-    right:-10px;
+    right:20px;
+    bottom:5px;
+    width:400px;
     text-align:right;
+    
+    margin:0;
+    padding-bottom:10px;
+}
+.social-buttons {
+    margin-top:20px;
 }
 
 #infoLink:hover {
@@ -231,12 +254,12 @@ ul li {
 }
 
 .footerLink {
-    margin-top:45px;
-    font-size: 80%;
+    margin-top:40px;
 }
 
 .topLabel {
-    display:inline-block;
+    -webkit-backface-visibility: hidden;
+    margin-right:5px;
 }
 
 a {

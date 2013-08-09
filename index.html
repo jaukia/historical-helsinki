@@ -3,123 +3,83 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<title>Historical Helsinki</title>
-   
+	
     <link rel="stylesheet" href="style/avgrund.css" />
     <link rel="stylesheet" href="style/layer-lens.css" type="text/css">
     <link rel="stylesheet" href="style/nouislider.hh.css" type="text/css">
-
     <link rel="stylesheet" href="style/main.css" />
-    
 </head>
 <body>
-    
-    <div class="avgrund-popup">
-        <h1><a name="sources"></a>Historical Helsinki</h1>
-        
-        <div class="mainPanelContent">        
-            
-        <h3>Sources</h3>
-        
-    <ul>
-        <li><b>1837</b>: Gyldén, C.W. <a href="http://urn.fi/URN:NBN:fi:jyu-200908243765">Map of Helsinki</a>. Copyright for digital version University of Jyväskylä.
-        <li><b>1897</b>: Suomen Matkailija-Yhdistys: Suomi kartasto, <a href="http://www.histdoc.net/pic/helsinki1897.jpg">Map of Helsinki</a>. Copyright for digital version Pauli Kruhse / <a href="http://www.histdoc.net/">Histdoc.net</a>.
-        <li><b>1943</b>: Aerial photos 1943, photographed 4 May ja 9 May 1943. Original source: <a href="http://www.hri.fi/fi/data/helsingin-ortokuva-1943/">Helsinki Region Infoshare</a>.
-        <li><b>Map template</b>: This page is based on the <a href="http://www.teczno.com/old-oakland/">Old Oakland</a> page by Michal Migurski and uses <a href="HelsinkiLayers.js">javascript code</a> originating from the page. For more information on how to make maps like this, see the blog post <a href="http://mike.teczno.com/notes/flea-market-mapping.html">Flea market mapping</a> by Michal Migurski and have a look at <a href="http://www.youtube.com/watch?v=AIofnbSnd9E">this video</a> on the project. The transparency slider was inspired by <a href="http://sautter.com/map/">Sautter.com/map</a>.
-        <li><b>Background map</b>: Microsoft Virtual Earth (Aerial), MapQuest OpenStreetMap tiles (Roads)</li>
-    </ul>
-    
-    <p class="footerLink">
-        Created by <a href="http://janne.aukia.com/">Janne Aukia</a> &mdash; <a href="https://github.com/jaukia/historical-helsinki">Fork on Github</a>
-    </p>
-    
-        </div>
-    
-    </div>
-    
     <div class="avgrund-cover"></div>
 
     <div id="pageContent" class="avgrund-contents">
-        
         <div id="mainPanel">
-    
-            <h1>Historical Helsinki</h1>
-    
             <div class="mainPanelContent">        
-                <p>
-                    <p class="topLabel" style="margin-top:0px">Choose a map:</p>
+                <div>
+                    <span class="topLabel">Map:</span>
                     <select></select>
-                </p>
-                
-                <p>
-                    <span class="topLabel">Tool:&nbsp;</span>
-                    <a href="#" id="lensModeLink" class="itemLink modeLink active">Lens</a>
-                    <a href="#" id="transparencyModeLink" class="itemLink modeLink">Transparency</a>
-                </p>
-                
-                <div id="slider" class="noUiSlider" style="display:none">
                 </div>
                 
-                <div class="mapDetails">
-                    <div id="helsinki1837-details" style="display:none">
-                        <h3>Map by C.W. Gyldén (1837)</h3>
-                        <p>Compiled by C.W. Gyldén. He was the over director of National Land Survey of Finland. In addition to this, he owned to whole Lauttasaari.</p>
-                        <p>Interesting in this map are the tolls along the roads to the north <i>"Tavast tull"</i> and north-west <i>"Esbo tull"</i>. You can also see the long and short bridges leading to Siltasaari, of which nowadays only the long one, <i>"Pitkäsilta"</i> is left.</p>
-                        <p>The railway to city centre is missing, in the place of the current central railway station there is the Glo (Kluuvi) bay.</p>
-                    </div>
-                    <div id="helsinki1897-details">
-                        <h3>Map by Suomen Matkailija-Yhdistys (1897)</h3>
-                        <p>From "Suomi-Kartasto", a map book over Finland, collected by Suomen Matkailija-Yhdistys.</p>
-                        <p>Interesting details in the map include planned road network in Töölö and <i>"Linjat"</i> in Hakaniemi that extend up to <i>"Kuudes linja"</i>. Kaisaniemenkatu does not exist yet.
-                        <p>See <a target="_blank" href="http://www.histdoc.net/edlund/index.html">photos over Helsinki from the year before</a>.</p>
-                    </div>
-                    <div id="helsinki1943-details" style="display:none">
-                        <h3>Aerial Photos of Helsinki (1943)</h3>
-                        <p>The aerial photos were taken before the massive bombings in 1944. The quality of images is very good.</p>
-                        
-                        <p>One interesting detail is the bath house in Kaivopuisto, which still exists in 1944. Lauttasaari and Kulosaari are still mostly unbuilt.</p>
-                    </div>
-                    <div id="smithpolvinen-m1-details" style="display:none">
-                        <h3>Smith-Polvinen plan (1968)</h3>
-                        <p>This is a vision of alternative Helsinki which was never built. The M1 highway cuts through Punavuori and connects Lahdenväylä with Länsiväylä.</p>
-                        
-                        <p>The M1 highway is just one of the planned highways surrounding Helsinki. These would have transformed Helsinki to something akin to a northern Los Angeles.</p>
-                    </div>
+                <!--<p>
+                    <span class="topLabel">Tool:</span>
+                    <a href="#" id="modeToggle" class="itemToggle">Lens</a>
+                </p>-->
+                
+                <div id="lensSliderContainer" class="topLabel">
+                    Size:&nbsp;<div id="lensSlider" class="slider noUiSlider"></div>
                 </div>
                 
-                <p class="mapTypeSelector">
+                <div id="transparencySliderContainer" class="topLabel" style="display:none">
+                    Amount:&nbsp;<div id="transparencySlider" class="slider noUiSlider"></div>
+                </div>
+                
+                <div class="mapTypeSelector">
                     <span class="topLabel">Background:</span>
-                    <a id="roadMapLink" href="#" class="mapLink backgroundMapLink itemLink active">Road</a>
-                    <a id="aerialMapLink" class="mapLink backgroundMapLink itemLink" href="#">Aerial</a>
-                </p>
+                    <a href="#" id="bgToggle" class="itemToggle">Road</a>
+                </div>
                
-                <a href="#" onclick="Avgrund.show('.avgrund-popup');" id="infoLink">i</a>
-                
-                <div class="social-buttons">
+            </div>
+        </div>
+        
+        <div id="map"></div>
+        
+        <div id="infoBox" onclick="Avgrund.show('.avgrund-popup');">
+            <h1>Historical Helsinki</h1>
+        </div>
+    </div>
     
-                 <iframe allowtransparency="true" frameborder="0" scrolling="no"
+    <div class="avgrund-popup">
+        <div class="mainPanelContent">        
+            
+             <h1>Historical Helsinki</h1>
+       
+            <p>Historical Helsinki is a site where you can compare maps and aerial photos from 1837, 1897 and 1943, among others.</p>
+            
+            <h3>Sources</h3>
+            <p>For sources and licenses, have a look at the <a href="https://github.com/jaukia/historical-helsinki/blob/master/LICENCES.txt">Historical Helsinki licenses listing</a>.
+            <p class="footerLink">
+                Created by <a href="http://janne.aukia.com/">Janne Aukia</a> &mdash; <a href="https://github.com/jaukia/historical-helsinki">Fork on Github</a>
+            </p>
+            <div class="social-buttons">
+    
+                <iframe allowtransparency="true" frameborder="0" scrolling="no"
             src="http://platform.twitter.com/widgets/tweet_button.html?related=jaukia&count=horizontal&counturl=http://www.historical-helsinki.net&url=http://www.historical-helsinki.net&text=Historical%20Helsinki%20by%20@jaukia,%20compare%20maps%20and%20aerial%20photos%20from%201837,%201897%20and%201943"
             style="width:90px; height:20px;"></iframe>
     
                 <iframe src="http://ghbtns.com/github-btn.html?user=jaukia&repo=historical-helsinki&type=watch&count=true"
       allowtransparency="true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
-                </div>
             </div>
         </div>
-        
-        <div id="map"></div>
     </div>
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="lib/jquery-1.9.0.min.js"><\/script>')</script>
-    
     <script src="lib/openlayers/OpenLayers.js" type="text/javascript"></script>
     <script src="lib/avgrund.js" type="text/javascript"></script>
-    
+    <script src="lib/LayerLens.js" type="text/javascript"></script>
+    <script src="lib/jquery.nouislider.min.js" type="text/javascript"></script>
+    <script src="lib/jquery.customSelect.min.js" type="text/javascript"></script>
     <script src="historical-helsinki.js" type="text/javascript"></script>
-    
-    <script type="text/javascript" src="lib/LayerLens.js"></script>
-    
-    <script type="text/javascript" src="lib/jquery.nouislider.min.js"></script>
     
     <!-- Google Analytics -->
     <script type="text/javascript">
